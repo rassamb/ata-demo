@@ -450,6 +450,7 @@ body {
   .services-grid { grid-template-columns: 1fr; }
   .stats-strip { flex-wrap: wrap; }
   .stat-item { min-width: 50%; }
+  .map-grid { grid-template-columns: 1fr !important; }
 }
 @media(max-width:480px) {
   .g4 { grid-template-columns: 1fr 1fr; }
@@ -642,6 +643,64 @@ body {
         <p style="font-size:0.82rem;color:rgba(255,255,255,0.25)">Disponible dans le dashboard Privé et le dashboard Public · Essayez-le en cliquant sur 🤖</p>
       </div>
 
+    </div>
+  </div>
+
+
+  <!-- CARTE SÉNÉGAL -->
+  <div style="padding:5rem 2rem;background:var(--s1);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div class="map-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+
+        <!-- Texte gauche -->
+        <div>
+          <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--green2);margin-bottom:0.75rem">Couverture géographique</div>
+          <h2 style="font-family:'Sora',sans-serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700;letter-spacing:-0.02em;color:var(--forest);line-height:1.2;margin-bottom:0.75rem">
+            Conçu pour<br>le Sénégal et<br>l'<span style="color:var(--green2)">Afrique de l'Ouest</span>
+          </h2>
+          <p style="color:var(--text3);font-size:0.92rem;line-height:1.7;margin-bottom:2rem">
+            ATA Santé Intelligence couvre les 14 régions du Sénégal. Chaque établissement est localisé, chaque donnée est contextualisée selon les réalités du terrain africain.
+          </p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:10px;font-size:0.85rem;color:var(--text2)">
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0"></span>
+              <span><b style="color:var(--forest)">14 régions</b> couvertes au Sénégal</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:0.85rem;color:var(--text2)">
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0"></span>
+              <span><b style="color:var(--forest)">Cliniques privées</b> et hôpitaux publics</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:0.85rem;color:var(--text2)">
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--terr);flex-shrink:0"></span>
+              <span><b style="color:var(--forest)">Données DHIS2</b> — système national de santé</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carte droite -->
+        <div style="position:relative;">
+          <div style="background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:1.5rem;box-shadow:0 4px 20px rgba(26,58,42,0.08)">
+            <div style="font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;display:flex;align-items:center;gap:6px">
+              <span style="width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 4px var(--green)"></span>
+              Carte en direct · Octobre 2025
+            </div>
+            <div id="accueil-map" style="width:100%;height:340px;border-radius:8px;overflow:hidden;z-index:0;position:relative"></div>
+            <!-- Legend -->
+            <div style="display:flex;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:8px">
+              <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text3)">
+                <span style="width:10px;height:10px;border-radius:50%;background:var(--green)"></span>Clinique active
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text3)">
+                <span style="width:10px;height:10px;border-radius:50%;background:var(--gold)"></span>Prospect
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text3)">
+                <span style="width:8px;height:8px;border-radius:2px;background:rgba(45,106,79,0.4)"></span>Patients élevés
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 
@@ -1373,6 +1432,140 @@ document.addEventListener('click', function(e) {
   </div>
 </div>
 
+
+
+
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<style>
+  .leaflet-container { font-family: 'DM Sans', sans-serif !important; }
+  .leaflet-popup-content-wrapper {
+    background: #fff; border: 1px solid rgba(45,106,79,0.15);
+    border-radius: 10px; box-shadow: 0 4px 20px rgba(26,58,42,0.12);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .leaflet-popup-tip { background: #fff; }
+  .map-popup-title { font-weight: 600; color: #1A3A2A; font-size: 13px; margin-bottom: 6px; }
+  .map-popup-row { display: flex; justify-content: space-between; gap: 16px; font-size: 11px; color: #4A6741; margin-top: 3px; }
+  .map-popup-val { font-weight: 600; color: #1A3A2A; }
+  .map-popup-badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 4px; margin-top: 5px; }
+</style>
+
+<!-- Leaflet JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+(function initLeafletMap() {
+  // Wait for DOM
+  function tryInit() {
+    var el = document.getElementById('accueil-map');
+    if (!el || el.offsetWidth === 0) { setTimeout(tryInit, 200); return; }
+
+    var map = L.map('accueil-map', {
+      center: [14.4, -14.5],
+      zoom: 6,
+      zoomControl: true,
+      scrollWheelZoom: false,
+      attributionControl: false
+    });
+
+    // Tile layer — CartoDB light, très propre
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+      maxZoom: 10, minZoom: 5
+    }).addTo(map);
+
+    // Données régions
+    var regions = [
+      { name:'Dakar',       coords:[[14.6,-17.55],[14.6,-17.1],[14.85,-17.1],[14.85,-17.55]], patients:612, ca:'15,1M', cliniques:3,  trend:'+14%' },
+      { name:'Thiès',       coords:[[14.5,-17.1],[14.5,-16.7],[14.95,-16.7],[14.95,-17.1]],  patients:287, ca:'7,2M',  cliniques:2,  trend:'+9%'  },
+      { name:'Saint-Louis', coords:[[15.0,-16.9],[15.0,-15.5],[16.7,-15.5],[16.7,-16.9]],    patients:198, ca:'4,8M',  cliniques:1,  trend:'+6%'  },
+      { name:'Diourbel',    coords:[[14.5,-16.7],[14.5,-16.1],[14.9,-16.1],[14.9,-16.7]],    patients:176, ca:'4,2M',  cliniques:1,  trend:'+11%' },
+      { name:'Kaolack',     coords:[[13.7,-16.1],[13.7,-15.4],[14.3,-15.4],[14.3,-16.1]],    patients:154, ca:'3,8M',  cliniques:1,  trend:'+5%'  },
+      { name:'Kaffrine',    coords:[[13.5,-15.4],[13.5,-14.5],[14.2,-14.5],[14.2,-15.4]],    patients:38,  ca:'0,9M',  cliniques:0,  trend:'+5%'  },
+      { name:'Ziguinchor',  coords:[[12.2,-16.8],[12.2,-15.8],[13.0,-15.8],[13.0,-16.8]],    patients:132, ca:'3,2M',  cliniques:1,  trend:'+8%'  },
+      { name:'Fatick',      coords:[[13.9,-16.7],[13.9,-16.1],[14.5,-16.1],[14.5,-16.7]],    patients:98,  ca:'2,4M',  cliniques:0,  trend:'+3%'  },
+      { name:'Louga',       coords:[[14.9,-16.2],[14.9,-15.0],[15.8,-15.0],[15.8,-16.2]],    patients:87,  ca:'2,1M',  cliniques:0,  trend:'+7%'  },
+      { name:'Tambacounda', coords:[[12.3,-14.5],[12.3,-13.0],[14.0,-13.0],[14.0,-14.5]],    patients:64,  ca:'1,6M',  cliniques:0,  trend:'+2%'  },
+      { name:'Kolda',       coords:[[12.2,-15.8],[12.2,-14.5],[13.0,-14.5],[13.0,-15.8]],    patients:58,  ca:'1,4M',  cliniques:0,  trend:'+4%'  },
+      { name:'Matam',       coords:[[14.0,-14.5],[14.0,-13.3],[15.5,-13.3],[15.5,-14.5]],    patients:42,  ca:'1,0M',  cliniques:0,  trend:'+1%'  },
+      { name:'Sédhiou',     coords:[[12.5,-15.8],[12.5,-15.0],[13.0,-15.0],[13.0,-15.8]],    patients:34,  ca:'0,8M',  cliniques:0,  trend:'+3%'  },
+      { name:'Kédougou',    coords:[[12.0,-13.0],[12.0,-11.8],[13.2,-11.8],[13.2,-13.0]],    patients:27,  ca:'0,7M',  cliniques:0,  trend:'+2%'  },
+    ];
+
+    function getColor(p) {
+      if (p >= 400) return 'rgba(26,58,42,0.75)';
+      if (p >= 200) return 'rgba(45,106,79,0.65)';
+      if (p >= 100) return 'rgba(64,145,108,0.55)';
+      if (p >= 50)  return 'rgba(82,183,136,0.45)';
+      return 'rgba(149,213,178,0.35)';
+    }
+
+    regions.forEach(function(r) {
+      var latlngs = r.coords.map(function(c){ return [c[0], c[1]]; });
+      var poly = L.polygon(latlngs, {
+        color: 'rgba(45,106,79,0.4)',
+        weight: 1,
+        fillColor: getColor(r.patients),
+        fillOpacity: 1
+      }).addTo(map);
+
+      var badge = r.cliniques > 0
+        ? '<span class="map-popup-badge" style="background:rgba(45,106,79,0.1);color:#2D6A4F">' + r.cliniques + ' clinique' + (r.cliniques > 1 ? 's' : '') + '</span>'
+        : '<span class="map-popup-badge" style="background:rgba(233,196,106,0.15);color:#A0720A">Prospect</span>';
+
+      poly.bindPopup(
+        '<div class="map-popup-title">' + r.name + '</div>' +
+        '<div class="map-popup-row"><span>Patients</span><span class="map-popup-val">' + r.patients + '</span></div>' +
+        '<div class="map-popup-row"><span>CA</span><span class="map-popup-val">' + r.ca + ' CFA</span></div>' +
+        '<div class="map-popup-row"><span>Tendance</span><span class="map-popup-val" style="color:#2D6A4F">' + r.trend + '</span></div>' +
+        badge,
+        { maxWidth: 200 }
+      );
+
+      poly.on('mouseover', function() { this.setStyle({ fillOpacity: 0.9, weight: 2 }); });
+      poly.on('mouseout',  function() { this.setStyle({ fillOpacity: 1,   weight: 1 }); });
+    });
+
+    // Marqueurs cliniques
+    var cliniques = [
+      { name:'Clinique Pasteur',     lat:14.72, lng:-17.47, type:'active',   info:'Dakar · 312 patients' },
+      { name:'Clinique du Cap',      lat:14.69, lng:-17.44, type:'active',   info:'Dakar · 198 patients' },
+      { name:'Hôpital Pikine',       lat:14.74, lng:-17.39, type:'active',   info:'Dakar · 102 patients' },
+      { name:'Clinique Thiès',       lat:14.79, lng:-16.93, type:'active',   info:'Thiès · 156 patients' },
+      { name:'Hôpital Saint-Louis',  lat:16.02, lng:-16.49, type:'active',   info:'Saint-Louis · 198 patients' },
+      { name:'Hôpital Kaffrine',     lat:14.10, lng:-15.55, type:'active',   info:'Kaffrine · 38 patients' },
+      { name:'Centre Ziguinchor',    lat:12.56, lng:-16.27, type:'prospect', info:'Prospect · Non connecté' },
+      { name:'Centre Kaolack',       lat:14.15, lng:-16.07, type:'prospect', info:'Prospect · Non connecté' },
+    ];
+
+    cliniques.forEach(function(c) {
+      var color   = c.type === 'active' ? '#2D6A4F' : '#E9C46A';
+      var border  = c.type === 'active' ? '#1A3A2A' : '#A0720A';
+      var size    = c.type === 'active' ? 12 : 9;
+
+      var icon = L.divIcon({
+        className: '',
+        html: '<div style="width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:' + color + ';border:2px solid ' + border + ';box-shadow:0 2px 6px rgba(0,0,0,0.2)"></div>',
+        iconSize: [size, size],
+        iconAnchor: [size/2, size/2]
+      });
+
+      L.marker([c.lat, c.lng], { icon: icon }).addTo(map)
+        .bindPopup(
+          '<div class="map-popup-title">' + c.name + '</div>' +
+          '<div class="map-popup-row"><span>' + c.info + '</span></div>',
+          { maxWidth: 180 }
+        );
+    });
+
+    // Réactiver scroll wheel au clic sur la carte
+    map.on('click', function() { map.scrollWheelZoom.enable(); });
+    map.on('mouseout', function() { map.scrollWheelZoom.disable(); });
+  }
+
+  tryInit();
+})();
+</script>
 
 </body>
 </html>
