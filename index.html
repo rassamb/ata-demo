@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ATA Santé Intelligence — Présentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root {
+  /* Savane & Baobab */
+  --bg:      #F7F2E8;
+  --s1:      #FFFFFF;
+  --s2:      #F0EAD6;
+  --s3:      #E8DFC4;
+  --forest:  #1A3A2A;
+  --green:   #2D6A4F;
+  --green2:  #40916C;
+  --green3:  #52B788;
+  --mint:    #95D5B2;
+  --gold:    #E9C46A;
+  --gold2:   #F4A261;
+  --terr:    #C77B3A;
+  --red:     #AE2012;
+  --red-l:   #FFF0EE;
+  --amber:   #CA6702;
+  --amber-l: #FFF8EE;
+  --border:  rgba(45,106,79,0.13);
+  --text:    #1A3A2A;
+  --text2:   #4A6741;
+  --text3:   #8A9E82;
+  --shadow:  0 2px 8px rgba(26,58,42,0.07);
+  --r: 12px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--forest);
+  padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 2px solid rgba(233,196,106,0.3);
+}
+.nav-logo {
+  font-family: 'Sora', sans-serif;
+  font-weight: 800; font-size: 1rem;
+  color: var(--gold); letter-spacing: 0.06em;
+  padding: 1rem 0;
+  display: flex; align-items: center; gap: 0.5rem;
+  cursor: pointer; text-decoration: none;
+  transition: opacity 0.2s;
+}
+.nav-logo:hover { opacity: 0.85; }
+.nav-logo span { color: rgba(255,255,255,0.4); font-weight: 400; font-size: 0.72rem; }
+.nav-links { display: flex; gap: 0; }
+.nav-link {
+  padding: 1rem 1.1rem;
+  font-size: 0.78rem; font-weight: 500;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+.nav-link:hover { color: rgba(255,255,255,0.8); }
+.nav-link.active { color: var(--gold); border-bottom-color: var(--gold); }
+.demo-pill {
+  background: rgba(233,196,106,0.15);
+  border: 1px solid rgba(233,196,106,0.3);
+  color: var(--gold); font-size: 0.65rem;
+  font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem; border-radius: 100px;
+}
+
+/* ── PAGES ── */
+.page { display: none; animation: fadeIn 0.35s ease; }
+.page.active { display: block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+/* ══════════════════════════════
+   PAGE 1 — ACCUEIL
+══════════════════════════════ */
+.hero {
+  min-height: 92vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  position: relative; overflow: hidden;
+  background: var(--forest);
+}
+
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(ellipse 60% 50% at 20% 30%, rgba(45,106,79,0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 70%, rgba(233,196,106,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(233,196,106,0.12);
+  border: 1px solid rgba(233,196,106,0.25);
+  border-radius: 100px; padding: 0.35rem 1rem;
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 2rem;
+  position: relative; z-index: 1;
+}
+.hero-badge .dot {
+  width: 6px; height: 6px;
+  background: var(--gold); border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+.hero h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800; line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin-bottom: 1.25rem;
+  position: relative; z-index: 1;
+}
+.hero h1 .g { color: var(--mint); }
+.hero h1 .o { color: var(--gold); }
+
+.hero-sub {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7; max-width: 560px;
+  margin-bottom: 0.5rem;
+  position: relative; z-index: 1;
+}
+.hero-sub2 {
+  font-size: 0.82rem; color: rgba(255,255,255,0.25);
+  font-style: italic; margin-bottom: 3rem;
+  position: relative; z-index: 1;
+}
+
+.hero-actions {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  justify-content: center;
+  position: relative; z-index: 1;
+}
+
+.btn-p {
+  background: linear-gradient(135deg, var(--green), var(--green2));
+  color: #fff; border: none;
+  padding: 0.9rem 2rem; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600; font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(45,106,79,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-p:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(45,106,79,0.5); }
+
+.btn-s {
+  background: transparent; color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 0.9rem 2rem; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500; font-size: 0.9rem;
+  cursor: pointer; transition: all 0.2s;
+}
+.btn-s:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Stats strip */
+.stats-strip {
+  display: flex; gap: 0;
+  background: var(--s1);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.stat-item {
+  flex: 1; padding: 1.75rem 1.5rem;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+.stat-item:last-child { border-right: none; }
+.stat-val {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.8rem; font-weight: 700;
+  color: var(--forest); line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.stat-val .accent { color: var(--green); }
+.stat-lbl { font-size: 0.75rem; color: var(--text3); line-height: 1.4; }
+
+/* Services */
+.services-section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+.section-lbl {
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--green2); margin-bottom: 0.75rem;
+}
+.section-title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 700; letter-spacing: -0.02em;
+  margin-bottom: 0.75rem; line-height: 1.2; color: var(--forest);
+}
+.section-sub { color: var(--text3); font-size: 0.92rem; line-height: 1.7; max-width: 500px; }
+
+.services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
+.svc-card {
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 1.75rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  position: relative; overflow: hidden;
+}
+.svc-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+}
+.svc-card.prv::before { background: linear-gradient(90deg, var(--forest), var(--green2)); }
+.svc-card.pub::before { background: linear-gradient(90deg, var(--green2), var(--mint)); }
+.svc-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(26,58,42,0.12); border-color: var(--green3); }
+
+.svc-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; margin-bottom: 1rem;
+}
+.icon-prv { background: rgba(26,58,42,0.1); }
+.icon-pub { background: rgba(45,106,79,0.12); }
+
+.svc-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text3); margin-bottom: 0.4rem; }
+.svc-card h3 { font-family: 'Sora', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--forest); }
+.svc-card p { font-size: 0.82rem; color: var(--text2); line-height: 1.6; margin-bottom: 1rem; }
+.svc-features { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+.svc-features li { font-size: 0.78rem; color: var(--text2); display: flex; align-items: center; gap: 0.45rem; }
+.svc-features li::before { content: '→'; color: var(--green2); font-size: 0.68rem; }
+
+/* CTA section */
+.cta-section {
+  background: var(--forest);
+  padding: 5rem 2rem;
+  text-align: center;
+}
+.cta-section h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800; color: #fff;
+  letter-spacing: -0.02em; margin-bottom: 0.75rem;
+}
+.cta-section h2 span { color: var(--gold); }
+.cta-section p { color: rgba(255,255,255,0.5); font-size: 0.95rem; margin-bottom: 2.5rem; }
+
+/* ══════════════════════════════
+   DASHBOARDS COMMUNS
+══════════════════════════════ */
+.db-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 18px; flex-wrap: wrap; gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.tb-prv { background: var(--forest); }
+.tb-pub { background: var(--green); }
+
+.tb-logo { display: flex; align-items: center; gap: 10px; }
+.tb-icon {
+  width: 30px; height: 30px; border-radius: 8px;
+  background: rgba(233,196,106,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+}
+.tb-name { font-size: 13px; font-weight: 500; color: var(--gold); letter-spacing: 0.04em; }
+.tb-sub { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 1px; }
+.tb-right { display: flex; align-items: center; gap: 8px; }
+.tb-info { font-size: 11px; color: rgba(255,255,255,0.35); }
+.db-demo-tag {
+  background: rgba(233,196,106,0.15); border: 1px solid rgba(233,196,106,0.25);
+  color: var(--gold); font-size: 10px; font-weight: 500;
+  padding: 3px 8px; border-radius: 4px; letter-spacing: 0.05em;
+}
+.period-grp { display: flex; border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.15); }
+.pb { padding: 4px 10px; font-size: 11px; background: none; border: none; color: rgba(255,255,255,0.4); cursor: pointer; }
+.pb.active { background: rgba(233,196,106,0.2); color: var(--gold); }
+
+.db-inner { padding: 14px 18px; display: flex; flex-direction: column; gap: 12px; }
+
+/* GRIDS */
+.g4 { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; }
+.g3 { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.g21 { display: grid; grid-template-columns: 1.65fr 1fr; gap: 10px; }
+
+/* CARD */
+.card {
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+.card-hd { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
+.card-title { font-size: 12px; font-weight: 500; color: var(--forest); }
+.card-sub { font-size: 10px; color: var(--text3); margin-top: 2px; }
+
+.badge { font-size: 10px; font-weight: 500; padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
+.b-g  { background: rgba(45,106,79,0.1); color: var(--green); }
+.b-g2 { background: rgba(82,183,136,0.12); color: var(--green2); }
+.b-gd { background: rgba(233,196,106,0.2); color: #8B6914; }
+.b-r  { background: rgba(174,32,18,0.08); color: var(--red); }
+.b-a  { background: rgba(202,103,2,0.1); color: var(--amber); }
+.b-t  { background: rgba(199,123,58,0.12); color: var(--terr); }
+
+/* KPI */
+.kpi { position: relative; overflow: hidden; }
+.kpi::before { content:''; position:absolute; top:0; left:0; bottom:0; width:3px; border-radius:2px 0 0 2px; }
+.kpi.k1::before { background: var(--green); }
+.kpi.k2::before { background: var(--gold); }
+.kpi.k3::before { background: var(--terr); }
+.kpi.k4::before { background: var(--red); }
+.kpi-lbl { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3); margin-bottom: 7px; padding-left: 8px; }
+.kpi-val { font-size: 22px; font-weight: 500; color: var(--forest); line-height: 1; margin-bottom: 6px; padding-left: 8px; }
+.kpi-val small { font-size: 12px; font-weight: 400; }
+.kpi-row { display:flex; align-items:center; justify-content:space-between; padding-left:8px; }
+.kpi-sub { font-size: 10px; color: var(--text3); margin-top: 4px; padding-left: 8px; }
+.delta { font-size: 11px; font-weight: 500; padding: 2px 7px; border-radius: 100px; }
+.d-up { background: rgba(45,106,79,0.1); color: var(--green); }
+.d-dn { background: rgba(174,32,18,0.08); color: var(--red); }
+.d-w  { background: rgba(202,103,2,0.1); color: var(--amber); }
+
+/* CHARTS */
+.ch190 { position: relative; height: 190px; }
+.ch165 { position: relative; height: 165px; }
+
+/* DONUT LEGEND */
+.dleg { display: flex; flex-direction: column; gap: 7px; margin-top: 10px; }
+.dleg-row { display: flex; align-items: center; justify-content: space-between; font-size: 11px; }
+.dleg-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dleg-name { color: var(--text2); flex: 1; margin-left: 7px; }
+.dleg-pct { font-weight: 500; color: var(--forest); }
+.dleg-val { color: var(--text3); font-size: 10px; margin-left: 8px; }
+
+/* TABLE */
+.svc-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.svc-table th { text-align:left; padding:5px 7px; font-size:10px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--text3); border-bottom:1px solid var(--border); }
+.svc-table td { padding:8px 7px; border-bottom:1px solid rgba(45,106,79,0.07); color:var(--text2); }
+.svc-table tr:last-child td { border-bottom:none; }
+.svc-table tr:hover td { background: var(--s2); }
+.td-n { color: var(--forest); font-weight: 500; }
+.td-m { font-family: 'DM Mono', monospace; font-size: 11px; }
+.bar-w { width:56px; height:5px; background:rgba(45,106,79,0.08); border-radius:3px; overflow:hidden; }
+.bar-f { height:100%; border-radius:3px; }
+
+/* COMPARE */
+.cmp-list { display:flex; flex-direction:column; gap:11px; }
+.cmp-top { display:flex; justify-content:space-between; font-size:11px; margin-bottom:4px; }
+.cmp-name { color:var(--text2); }
+.cmp-vals { display:flex; gap:12px; }
+.cmp-v1 { font-weight:500; color:var(--forest); }
+.cmp-v2 { color:var(--text3); }
+.cmp-track { height:5px; background:rgba(45,106,79,0.08); border-radius:3px; overflow:hidden; margin-bottom:2px; }
+.cmp-fill { height:100%; border-radius:3px; }
+.leg-line { display:flex; gap:14px; margin-top:10px; padding-top:10px; border-top:1px solid var(--border); }
+.leg-li { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--text2); }
+.leg-sq { width:10px; height:4px; border-radius:2px; }
+
+/* ALERTS */
+.al-list { display:flex; flex-direction:column; gap:7px; }
+.al-row { display:flex; gap:9px; align-items:flex-start; padding:9px 11px; border-radius:8px; border:1px solid transparent; }
+.al-rr { background:rgba(174,32,18,0.04); border-color:rgba(174,32,18,0.15); }
+.al-aa { background:rgba(202,103,2,0.04); border-color:rgba(202,103,2,0.15); }
+.al-gg { background:rgba(45,106,79,0.05); border-color:rgba(45,106,79,0.15); }
+.al-bb { background:rgba(233,196,106,0.08); border-color:rgba(233,196,106,0.2); }
+.al-title { font-size:12px; font-weight:500; color:var(--forest); margin-bottom:2px; }
+.al-desc { font-size:11px; color:var(--text2); line-height:1.5; }
+
+/* AGENDA */
+.ag-list { display:flex; flex-direction:column; gap:6px; }
+.ag-row { display:flex; align-items:center; gap:8px; padding:7px 9px; background:var(--s2); border-radius:7px; }
+.ag-time { font-size:11px; font-weight:500; color:var(--green); min-width:40px; font-family:'DM Mono',monospace; }
+.ag-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.ag-name { font-size:12px; color:var(--forest); font-weight:500; flex:1; }
+.ag-role { font-size:10px; color:var(--text3); }
+.ag-load { font-size:11px; color:var(--text2); white-space:nowrap; }
+
+/* BUDGET */
+.bgt-list { display:flex; flex-direction:column; gap:10px; }
+.bgt-row { display:flex; flex-direction:column; gap:5px; }
+.bgt-top { display:flex; justify-content:space-between; font-size:11px; }
+.bgt-name { color:var(--text2); }
+.bgt-track { height:7px; background:rgba(45,106,79,0.08); border-radius:4px; overflow:hidden; }
+.bgt-fill { height:100%; border-radius:4px; }
+.bgt-meta { display:flex; justify-content:space-between; font-size:10px; color:var(--text3); }
+
+/* STOCKS */
+.stk-list { display:flex; flex-direction:column; gap:7px; }
+.stk-row { display:flex; align-items:center; gap:10px; padding:8px 10px; background:var(--s2); border-radius:8px; border:1px solid transparent; }
+.stk-row.sr { background:rgba(174,32,18,0.04); border-color:rgba(174,32,18,0.15); }
+.stk-row.sa { background:rgba(202,103,2,0.04); border-color:rgba(202,103,2,0.15); }
+.stk-name { font-size:12px; font-weight:500; color:var(--forest); flex:1; }
+.stk-cat { font-size:10px; color:var(--text3); }
+.stk-bar-w { width:55px; height:5px; background:rgba(45,106,79,0.1); border-radius:3px; overflow:hidden; }
+.stk-bar { height:100%; border-radius:3px; }
+.stk-days { font-size:12px; font-weight:500; text-align:right; }
+
+/* PATHO */
+.patho-list { display:flex; flex-direction:column; gap:7px; }
+.patho-row { display:flex; align-items:center; gap:8px; font-size:11px; }
+.patho-name { color:var(--text2); flex:1; }
+.patho-track { flex:2; height:5px; background:rgba(45,106,79,0.08); border-radius:3px; overflow:hidden; }
+.patho-fill { height:100%; border-radius:3px; }
+.patho-val { color:var(--forest); font-weight:500; min-width:32px; text-align:right; }
+
+/* INDIC */
+.indic-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.indic-card { background:var(--s2); border-radius:8px; padding:10px 12px; border:1px solid var(--border); }
+.indic-val { font-size:18px; font-weight:500; color:var(--forest); line-height:1; }
+.indic-lbl { font-size:10px; color:var(--text3); margin-top:3px; }
+.indic-d { font-size:10px; margin-top:4px; }
+
+/* FORECAST */
+.fc-lbl { font-size:10px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--text3); margin-bottom:7px; }
+.fc-val { font-size:19px; font-weight:500; color:var(--forest); margin:6px 0; }
+.fc-track { height:6px; background:rgba(45,106,79,0.1); border-radius:3px; overflow:hidden; margin:7px 0; }
+.fc-fill { height:100%; border-radius:3px; }
+.fc-note { font-size:10px; color:var(--text3); }
+.fc-note b { color:var(--green); }
+
+/* BANNER */
+.banner { border-radius:var(--r); padding:10px 14px; display:flex; align-items:center; gap:10px; font-size:12px; }
+.banner-r { background:var(--red-l); border:1px solid rgba(174,32,18,0.2); color:var(--red); }
+
+/* WATERMARK */
+.wm { text-align:center; padding:12px 0 4px; font-size:10px; color:var(--text3); border-top:1px solid var(--border); margin-top:4px; }
+.wm b { color:var(--green); }
+
+/* MOBILE */
+@media(max-width:768px) {
+  .g4 { grid-template-columns: repeat(2,1fr); }
+  .g21, .g2 { grid-template-columns: 1fr; }
+  .g3 { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+  .services-grid { grid-template-columns: 1fr; }
+  .stats-strip { flex-wrap: wrap; }
+  .stat-item { min-width: 50%; }
+}
+@media(max-width:480px) {
+  .g4 { grid-template-columns: 1fr 1fr; }
+  .g3 { grid-template-columns: 1fr; }
+  .hero { padding: 3rem 1.25rem; }
+  .db-inner, .services-section { padding: 12px; }
+}
+
+/* ── HAMBURGER & MOBILE MENU ── */
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+}
+.hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: rgba(255,255,255,0.7); border-radius: 2px;
+  transition: all 0.3s;
+}
+.mobile-menu {
+  display: none; position: fixed;
+  top: 54px; left: 0; right: 0; z-index: 99;
+  background: var(--forest);
+  border-bottom: 2px solid rgba(233,196,106,0.3);
+  flex-direction: column; padding: 0.5rem 0;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  padding: 0.9rem 1.5rem;
+  font-size: 0.95rem; font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.2s, color 0.2s;
+}
+.mobile-menu a:hover { background: rgba(255,255,255,0.06); color: var(--gold); }
+.mobile-menu a:last-child { border-bottom: none; }
+@media(max-width: 768px) {
+  .nav-links { display: none !important; }
+  .hamburger { display: flex !important; }
+  .demo-pill { font-size: 0.58rem; padding: 0.2rem 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo" onclick="showPage('accueil')">ATA <span>Santé Intelligence</span></div>
+  <div class="nav-links" id="desktop-nav">
+    <a class="nav-link active" data-page="accueil" onclick="showPage('accueil')">Présentation</a>
+    <a class="nav-link" data-page="prv" onclick="showPage('prv')">Dashboard Privé</a>
+    <a class="nav-link" data-page="pub" onclick="showPage('pub')">Dashboard Public</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <div class="demo-pill">Démo · Données fictives</div>
+    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div id="mobile-menu" class="mobile-menu">
+  <a onclick="showPage('accueil')">🏠 Présentation</a>
+  <a onclick="showPage('prv')">🏥 Dashboard Privé</a>
+  <a onclick="showPage('pub')">🏛️ Dashboard Public</a>
+</div>
+
+<!-- ════════════════════════════════
+     PAGE ACCUEIL
+════════════════════════════════ -->
+<div class="page active" id="page-accueil">
+
+  <!-- HERO -->
+  <div class="hero">
+    
+    <h1>Pilotez votre hôpital<br>par la <span class="g">donnée</span>,<br>décidez avec <span class="o">confiance</span></h1>
+    <p class="hero-sub">ATA Santé Intelligence transforme les données de votre établissement en tableaux de bord clairs — pour les directeurs de cliniques privées et d'hôpitaux publics.</p>
+    <p class="hero-sub2">Decision Intelligence for African Healthcare / ATA Santé Intelligence</p>
+    <div class="hero-actions">
+      <button class="btn-p" onclick="showPage('prv', document.querySelectorAll('.nav-link')[1])">Voir Dashboard Privé →</button>
+      <button class="btn-s" onclick="showPage('pub', document.querySelectorAll('.nav-link')[2])">Voir Dashboard Public</button>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-val"><span class="accent">2</span></div>
+      <div class="stat-lbl">Types d'établissements<br>Privé & Public</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val"><span class="accent">5</span></div>
+      <div class="stat-lbl">Modules analytiques<br>par dashboard</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val"><span class="accent">3</span></div>
+      <div class="stat-lbl">Alertes intelligentes<br>en temps réel</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val"><span class="accent">14</span></div>
+      <div class="stat-lbl">Régions du Sénégal<br>couvertes</div>
+    </div>
+  </div>
+
+  <!-- AI ASSISTANT BANNER -->
+  <div style="background:var(--forest);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-bottom:1px solid rgba(233,196,106,0.15)">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:44px;height:44px;border-radius:12px;background:rgba(233,196,106,0.15);border:1px solid rgba(233,196,106,0.25);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🌿</div>
+      <div>
+        <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:600;color:var(--gold)">Rencontrez ATA, votre assistant intelligent</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:3px">Disponible dans chaque dashboard — posez vos questions, générez des rapports et des emails en quelques secondes.</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <span style="background:rgba(233,196,106,0.1);border:1px solid rgba(233,196,106,0.2);color:var(--gold);font-size:11px;padding:5px 10px;border-radius:6px">📊 Résume le mois</span>
+      <span style="background:rgba(233,196,106,0.1);border:1px solid rgba(233,196,106,0.2);color:var(--gold);font-size:11px;padding:5px 10px;border-radius:6px">✉️ Rédige un email</span>
+      <span style="background:rgba(233,196,106,0.1);border:1px solid rgba(233,196,106,0.2);color:var(--gold);font-size:11px;padding:5px 10px;border-radius:6px">⚠️ Actions prioritaires</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="services-section">
+    <div class="section-lbl">Nos solutions</div>
+    <h2 class="section-title">Un outil adapté<br>à chaque contexte</h2>
+    <p class="section-sub">Deux dashboards distincts — même moteur ATA, langages et priorités différents.</p>
+
+    <div class="services-grid">
+      <div class="svc-card prv">
+        <div class="svc-icon icon-prv">🏥</div>
+        <div class="svc-tag">Dashboard Privé</div>
+        <h3>Cliniques & Hôpitaux Privés</h3>
+        <p>Maximisez votre rentabilité et pilotez votre croissance avec des indicateurs financiers en temps réel.</p>
+        <ul class="svc-features">
+          <li>Chiffre d'affaires & marge nette par service</li>
+          <li>Recouvrement & suivi des créances</li>
+          <li>Prévisions de revenus mensuelles</li>
+          <li>Performance par médecin praticien</li>
+          <li>Comparaison mois vs mois détaillée</li>
+        </ul>
+      </div>
+      <div class="svc-card pub">
+        <div class="svc-icon icon-pub">🏛️</div>
+        <div class="svc-tag">Dashboard Public</div>
+        <h3>Hôpitaux & Centres Publics</h3>
+        <p>Optimisez vos ressources et justifiez vos budgets auprès du Ministère avec des données claires.</p>
+        <ul class="svc-features">
+          <li>Exécution budgétaire par poste</li>
+          <li>Gestion des stocks médicaments critiques</li>
+          <li>Flux patients & taux d'occupation lits</li>
+          <li>Suivi épidémiologique & pathologies</li>
+          <li>Alertes ruptures & dépassements budget</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Prêt à voir votre hôpital<br>sous un <span>nouvel angle</span> ?</h2>
+    <p>Explorez les deux dashboards de démonstration ci-dessus.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <button class="btn-p" onclick="showPage('prv', document.querySelectorAll('.nav-link')[1])">Dashboard Privé →</button>
+      <button class="btn-s" onclick="showPage('pub', document.querySelectorAll('.nav-link')[2])">Dashboard Public →</button>
+    </div>
+    <div style="margin-top:2.5rem;font-size:0.78rem;color:rgba(255,255,255,0.25)">
+      ATA — Asta Teranga Analytics · astateranga.com · Données fictives à des fins de démonstration
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════
+     PAGE DASHBOARD PRIVÉ
+════════════════════════════════ -->
+<div class="page" id="page-prv">
+  <div class="db-topbar tb-prv">
+    <div class="tb-logo">
+      <button onclick="showPage('accueil', document.querySelectorAll('.nav-link')[0])" style="background:rgba(233,196,106,0.12);border:1px solid rgba(233,196,106,0.25);color:var(--gold);font-size:11px;font-weight:500;padding:5px 10px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:5px;margin-right:8px;white-space:nowrap">← Retour</button>
+      <div class="tb-icon">🌿</div>
+      <div><div class="tb-name">ATA Santé Intelligence — Privé</div><div class="tb-sub">Clinique Pasteur Dakar</div></div>
+    </div>
+    <div class="tb-right">
+      <span class="tb-info">Lun. 14 oct. 2025 · 09h12</span>
+      <div class="period-grp"><button class="pb">7J</button><button class="pb active">30J</button><button class="pb">3M</button><button class="pb">12M</button></div>
+      <div class="db-demo-tag">DÉMO</div>
+    </div>
+  </div>
+  <div class="db-inner">
+
+    <div class="g4">
+      <div class="card kpi k1"><div class="kpi-lbl">💰 Chiffre d'affaires</div><div class="kpi-val"><small>CFA </small>47,3M</div><div class="kpi-row"><span class="delta d-up">↑ +12,4%</span><span class="kpi-sub">vs sept.</span></div><div class="kpi-sub">Objectif : 50M · 94,6%</div></div>
+      <div class="card kpi k2"><div class="kpi-lbl">🧑‍⚕️ Patients reçus</div><div class="kpi-val">1 847</div><div class="kpi-row"><span class="delta d-up">↑ +8,1%</span><span class="kpi-sub">vs sept.</span></div><div class="kpi-sub">Moy. 61 patients / jour</div></div>
+      <div class="card kpi k3"><div class="kpi-lbl">📈 Marge nette</div><div class="kpi-val">23,7<small>%</small></div><div class="kpi-row"><span class="delta d-up">↑ +3,2 pts</span><span class="kpi-sub">vs sept.</span></div><div class="kpi-sub">Secteur moyen : ~18%</div></div>
+      <div class="card kpi k4"><div class="kpi-lbl">⚡ Recouvrement</div><div class="kpi-val">78<small>%</small></div><div class="kpi-row"><span class="delta d-w">↓ −4 pts</span><span class="kpi-sub">vs sept.</span></div><div class="kpi-sub">5,2M CFA en attente</div></div>
+    </div>
+
+    <div class="g21">
+      <div class="card">
+        <div class="card-hd"><div><div class="card-title">Revenus & Dépenses — 12 mois</div><div class="card-sub">Millions CFA · Clinique Pasteur</div></div><span class="badge b-g">Tendance ↑</span></div>
+        <div style="display:flex;gap:14px;margin-bottom:10px;">
+          <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><span style="width:10px;height:10px;border-radius:2px;background:var(--green);display:inline-block"></span>Revenus</span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><span style="width:10px;height:3px;background:var(--gold);display:inline-block"></span>Dépenses</span>
+        </div>
+        <div class="ch190"><canvas id="prvRev"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div><div class="card-title">Revenus par service</div><div class="card-sub">Octobre 2025</div></div><span class="badge b-gd">47,3M CFA</span></div>
+        <div class="ch165"><canvas id="prvDonut"></canvas></div>
+        <div class="dleg">
+          <div class="dleg-row"><span class="dleg-dot" style="background:#1A3A2A"></span><span class="dleg-name">Cardiologie</span><span class="dleg-pct">32%</span><span class="dleg-val">15,1M</span></div>
+          <div class="dleg-row"><span class="dleg-dot" style="background:#2D6A4F"></span><span class="dleg-name">Maternité</span><span class="dleg-pct">24%</span><span class="dleg-val">11,4M</span></div>
+          <div class="dleg-row"><span class="dleg-dot" style="background:#E9C46A"></span><span class="dleg-name">Chirurgie</span><span class="dleg-pct">20%</span><span class="dleg-val">9,5M</span></div>
+          <div class="dleg-row"><span class="dleg-dot" style="background:#F4A261"></span><span class="dleg-name">Urgences</span><span class="dleg-pct">14%</span><span class="dleg-val">6,6M</span></div>
+          <div class="dleg-row"><span class="dleg-dot" style="background:#95D5B2"></span><span class="dleg-name">Labo/Radio</span><span class="dleg-pct">10%</span><span class="dleg-val">4,7M</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="card-hd"><div><div class="card-title">Performance par service</div><div class="card-sub">Marge nette · Octobre 2025</div></div><span class="badge b-g2">5 services</span></div>
+        <table class="svc-table">
+          <thead><tr><th>Service</th><th>CA</th><th>Marge</th><th>Tendance</th><th>Statut</th></tr></thead>
+          <tbody>
+            <tr><td class="td-n">Cardiologie</td><td class="td-m">15,1M</td><td style="color:var(--green);font-weight:500">31,4%</td><td><div class="bar-w"><div class="bar-f" style="width:85%;background:var(--green2)"></div></div></td><td><span class="badge b-g">Top</span></td></tr>
+            <tr><td class="td-n">Maternité</td><td class="td-m">11,4M</td><td style="color:var(--green);font-weight:500">26,8%</td><td><div class="bar-w"><div class="bar-f" style="width:70%;background:var(--green2)"></div></div></td><td><span class="badge b-g">Bon</span></td></tr>
+            <tr><td class="td-n">Chirurgie</td><td class="td-m">9,5M</td><td style="color:var(--amber);font-weight:500">18,2%</td><td><div class="bar-w"><div class="bar-f" style="width:48%;background:var(--gold)"></div></div></td><td><span class="badge b-a">Stable</span></td></tr>
+            <tr><td class="td-n">Urgences</td><td class="td-m">6,6M</td><td style="color:var(--red);font-weight:500">8,4%</td><td><div class="bar-w"><div class="bar-f" style="width:22%;background:var(--terr)"></div></div></td><td><span class="badge b-r">Faible</span></td></tr>
+            <tr><td class="td-n">Labo/Radio</td><td class="td-m">4,7M</td><td style="color:var(--green);font-weight:500">34,1%</td><td><div class="bar-w"><div class="bar-f" style="width:90%;background:var(--green2)"></div></div></td><td><span class="badge b-g">Top</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div><div class="card-title">Comparaison Octobre vs Septembre</div><div class="card-sub">6 indicateurs clés</div></div></div>
+        <div class="cmp-list">
+          <div><div class="cmp-top"><span class="cmp-name">CA total</span><div class="cmp-vals"><span class="cmp-v1">47,3M</span><span class="cmp-v2">42,1M</span></div></div><div class="cmp-track"><div class="cmp-fill" style="width:94%;background:var(--green)"></div></div><div class="cmp-track"><div class="cmp-fill" style="width:84%;background:rgba(45,106,79,0.2)"></div></div></div>
+          <div><div class="cmp-top"><span class="cmp-name">Patients reçus</span><div class="cmp-vals"><span class="cmp-v1">1 847</span><span class="cmp-v2">1 708</span></div></div><div class="cmp-track"><div class="cmp-fill" style="width:88%;background:var(--gold)"></div></div><div class="cmp-track"><div class="cmp-fill" style="width:81%;background:rgba(233,196,106,0.3)"></div></div></div>
+          <div><div class="cmp-top"><span class="cmp-name">Marge nette</span><div class="cmp-vals"><span class="cmp-v1">23,7%</span><span class="cmp-v2">20,5%</span></div></div><div class="cmp-track"><div class="cmp-fill" style="width:79%;background:var(--green2)"></div></div><div class="cmp-track"><div class="cmp-fill" style="width:68%;background:rgba(64,145,108,0.2)"></div></div></div>
+          <div><div class="cmp-top"><span class="cmp-name">Recouvrement</span><div class="cmp-vals"><span class="cmp-v1">78%</span><span class="cmp-v2">82%</span></div></div><div class="cmp-track"><div class="cmp-fill" style="width:78%;background:var(--terr)"></div></div><div class="cmp-track"><div class="cmp-fill" style="width:82%;background:rgba(199,123,58,0.25)"></div></div></div>
+          <div><div class="cmp-top"><span class="cmp-name">Chirurgies</span><div class="cmp-vals"><span class="cmp-v1">94</span><span class="cmp-v2">87</span></div></div><div class="cmp-track"><div class="cmp-fill" style="width:72%;background:var(--green)"></div></div><div class="cmp-track"><div class="cmp-fill" style="width:66%;background:rgba(45,106,79,0.2)"></div></div></div>
+          <div><div class="cmp-top"><span class="cmp-name">Durée moy. séjour</span><div class="cmp-vals"><span class="cmp-v1">2,4j</span><span class="cmp-v2">2,7j</span></div></div><div class="cmp-track"><div class="cmp-fill" style="width:40%;background:var(--green2)"></div></div><div class="cmp-track"><div class="cmp-fill" style="width:45%;background:rgba(64,145,108,0.2)"></div></div></div>
+        </div>
+        <div class="leg-line"><span class="leg-li"><span class="leg-sq" style="background:var(--green)"></span>Octobre</span><span class="leg-li"><span class="leg-sq" style="background:rgba(45,106,79,0.2)"></span>Septembre</span></div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="card-hd"><div><div class="card-title">Alertes intelligentes ATA</div><div class="card-sub">Générées automatiquement</div></div><span class="badge b-a">3 actives</span></div>
+        <div class="al-list">
+          <div class="al-row al-rr"><span style="font-size:13px;flex-shrink:0">🔴</span><div><div class="al-title">Recouvrement critique — Urgences</div><div class="al-desc">Taux passé de 82% à 64% en 2 semaines. 1,8M CFA de créances non recouvrées.</div></div></div>
+          <div class="al-row al-aa"><span style="font-size:13px;flex-shrink:0">🟡</span><div><div class="al-title">Stock critique — Anesthésiants</div><div class="al-desc">Propofol : 4 jours de stock. Commande requise sous 48h.</div></div></div>
+          <div class="al-row al-gg"><span style="font-size:13px;flex-shrink:0">🟢</span><div><div class="al-title">Opportunité — Cardiologie</div><div class="al-desc">Taux occupation 91%. +1 lit = +8% revenus. ROI estimé : 3 mois.</div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div><div class="card-title">Planning médecins — Aujourd'hui</div><div class="card-sub">Lundi 14 octobre 2025</div></div><span class="badge b-g2">8 praticiens</span></div>
+        <div class="ag-list">
+          <div class="ag-row"><span class="ag-time">08h00</span><span class="ag-dot" style="background:var(--forest)"></span><div style="flex:1"><div class="ag-name">Dr. Amadou Diallo</div><div class="ag-role">Cardiologie</div></div><span class="ag-load">14 patients</span></div>
+          <div class="ag-row"><span class="ag-time">08h30</span><span class="ag-dot" style="background:var(--green2)"></span><div style="flex:1"><div class="ag-name">Dr. Fatou Ndiaye</div><div class="ag-role">Maternité</div></div><span class="ag-load">9 patients</span></div>
+          <div class="ag-row"><span class="ag-time">09h00</span><span class="ag-dot" style="background:var(--gold)"></span><div style="flex:1"><div class="ag-name">Dr. Moussa Sow</div><div class="ag-role">Chirurgie</div></div><span class="ag-load">3 opérations</span></div>
+          <div class="ag-row"><span class="ag-time">09h30</span><span class="ag-dot" style="background:var(--terr)"></span><div style="flex:1"><div class="ag-name">Dr. Aïssatou Ba</div><div class="ag-role">Urgences</div></div><span class="ag-load">22 patients</span></div>
+          <div class="ag-row"><span class="ag-time">10h00</span><span class="ag-dot" style="background:var(--mint)"></span><div style="flex:1"><div class="ag-name">Dr. Ibrahima Fall</div><div class="ag-role">Labo / Radiologie</div></div><span class="ag-load">31 analyses</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g3">
+      <div class="card"><div class="fc-lbl">🔮 Prévision CA — Novembre</div><div class="fc-val">52,1M CFA</div><div class="fc-track"><div class="fc-fill" style="width:87%;background:linear-gradient(90deg,var(--green),var(--green3))"></div></div><div class="fc-note">Confiance <b>87%</b> · +10,1% vs octobre</div></div>
+      <div class="card"><div class="fc-lbl">🛏️ Taux occupation prévu</div><div class="fc-val">83%</div><div class="fc-track"><div class="fc-fill" style="width:83%;background:linear-gradient(90deg,var(--gold),var(--gold2))"></div></div><div class="fc-note">Actuellement 78% · Tendance <b>haussière</b></div></div>
+      <div class="card"><div class="fc-lbl">🛒 Achats prévus</div><div class="fc-val">11,4M CFA</div><div class="fc-track"><div class="fc-fill" style="width:72%;background:linear-gradient(90deg,var(--terr),var(--gold2))"></div></div><div class="fc-note">Budget alloué 13M · <b>Marge disponible</b></div></div>
+    </div>
+
+    <div class="wm"><b>ATA Santé Intelligence — Privé</b> · Clinique Pasteur Dakar · Données fictives · astateranga.com</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     PAGE DASHBOARD PUBLIC
+════════════════════════════════ -->
+<div class="page" id="page-pub">
+  <div class="db-topbar tb-pub">
+    <div class="tb-logo">
+      <button onclick="showPage('accueil', document.querySelectorAll('.nav-link')[0])" style="background:rgba(233,196,106,0.12);border:1px solid rgba(233,196,106,0.25);color:var(--gold);font-size:11px;font-weight:500;padding:5px 10px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:5px;margin-right:8px;white-space:nowrap">← Retour</button>
+      <div class="tb-icon">🌳</div>
+      <div><div class="tb-name">ATA Santé Intelligence — Public</div><div class="tb-sub">Hôpital Général de Pikine · Région de Dakar</div></div>
+    </div>
+    <div class="tb-right">
+      <span class="tb-info">Lun. 14 oct. 2025 · 08h45</span>
+      <div class="period-grp"><button class="pb">7J</button><button class="pb active">30J</button><button class="pb">3M</button><button class="pb">12M</button></div>
+      <div class="db-demo-tag">DÉMO</div>
+    </div>
+  </div>
+  <div class="db-inner">
+
+    <div class="banner banner-r">
+      <span style="font-size:15px;flex-shrink:0">⚠️</span>
+      <span><b>3 alertes critiques</b> — Rupture Paracétamol IV · Budget pharmacie à 94% · Urgences à 112% capacité</span>
+    </div>
+
+    <div class="g4">
+      <div class="card kpi k1"><div class="kpi-lbl">📊 Budget consommé</div><div class="kpi-val">74<small>%</small></div><div class="kpi-row"><span class="delta d-up">En ligne</span><span class="kpi-sub">oct. 2025</span></div><div class="kpi-sub">842M / 1,14 Mds CFA alloués</div></div>
+      <div class="card kpi k2"><div class="kpi-lbl">🧑‍⚕️ Patients reçus</div><div class="kpi-val">3 247</div><div class="kpi-row"><span class="delta d-up">↑ +11%</span><span class="kpi-sub">vs sept.</span></div><div class="kpi-sub">Moy. 108 patients / jour</div></div>
+      <div class="card kpi k3"><div class="kpi-lbl">🛏️ Taux occupation</div><div class="kpi-val">87<small>%</small></div><div class="kpi-row"><span class="delta d-w">Élevé</span><span class="kpi-sub">240 lits</span></div><div class="kpi-sub">Urgences : 112% · Critique</div></div>
+      <div class="card kpi k4"><div class="kpi-lbl">⏱️ Durée moy. séjour</div><div class="kpi-val">3,2<small>j</small></div><div class="kpi-row"><span class="delta d-dn">↑ +0,4j</span><span class="kpi-sub">vs sept.</span></div><div class="kpi-sub">Objectif Ministère : ≤ 3j</div></div>
+    </div>
+
+    <div class="g21">
+      <div class="card">
+        <div class="card-hd"><div><div class="card-title">Exécution budgétaire par poste</div><div class="card-sub">Budget 2025 · Rapport Ministère de la Santé</div></div><span class="badge b-g">74% global</span></div>
+        <div class="bgt-list">
+          <div class="bgt-row"><div class="bgt-top"><span class="bgt-name">Ressources humaines</span><div style="display:flex;gap:10px;font-size:11px"><span style="font-weight:500;color:var(--green)">68%</span><span style="color:var(--text3)">412M / 606M</span></div></div><div class="bgt-track"><div class="bgt-fill" style="width:68%;background:var(--green2)"></div></div><div class="bgt-meta"><span>Personnel médical & admin</span><span style="color:var(--green)">Nominal</span></div></div>
+          <div class="bgt-row"><div class="bgt-top"><span class="bgt-name">Pharmacie & consommables</span><div style="display:flex;gap:10px;font-size:11px"><span style="font-weight:500;color:var(--red)">94%</span><span style="color:var(--text3)">188M / 200M</span></div></div><div class="bgt-track"><div class="bgt-fill" style="width:94%;background:var(--red)"></div></div><div class="bgt-meta"><span>Médicaments + matériel</span><span style="color:var(--red)">⚠ Critique</span></div></div>
+          <div class="bgt-row"><div class="bgt-top"><span class="bgt-name">Équipements & maintenance</span><div style="display:flex;gap:10px;font-size:11px"><span style="font-weight:500;color:var(--amber)">81%</span><span style="color:var(--text3)">113M / 140M</span></div></div><div class="bgt-track"><div class="bgt-fill" style="width:81%;background:var(--gold)"></div></div><div class="bgt-meta"><span>Matériel médical</span><span style="color:var(--amber)">Surveiller</span></div></div>
+          <div class="bgt-row"><div class="bgt-top"><span class="bgt-name">Fonctionnement général</span><div style="display:flex;gap:10px;font-size:11px"><span style="font-weight:500;color:var(--green)">62%</span><span style="color:var(--text3)">74M / 119M</span></div></div><div class="bgt-track"><div class="bgt-fill" style="width:62%;background:var(--mint)"></div></div><div class="bgt-meta"><span>Énergie, eau, logistique</span><span style="color:var(--green)">Nominal</span></div></div>
+          <div class="bgt-row"><div class="bgt-top"><span class="bgt-name">Formation & recherche</span><div style="display:flex;gap:10px;font-size:11px"><span style="font-weight:500;color:var(--green)">45%</span><span style="color:var(--text3)">27M / 60M</span></div></div><div class="bgt-track"><div class="bgt-fill" style="width:45%;background:var(--green3)"></div></div><div class="bgt-meta"><span>Capacitation personnel</span><span style="color:var(--green)">Nominal</span></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div><div class="card-title">Flux patients par service</div><div class="card-sub">Octobre 2025</div></div><span class="badge b-g2">5 services</span></div>
+        <div style="display:flex;gap:12px;margin-bottom:10px;">
+          <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><span style="width:10px;height:10px;border-radius:2px;background:var(--green);display:inline-block"></span>Entrées</span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><span style="width:10px;height:10px;border-radius:2px;background:var(--gold);display:inline-block"></span>Sorties</span>
+        </div>
+        <div class="ch165"><canvas id="pubFlux"></canvas></div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="card-hd"><div><div class="card-title">Stocks médicaments critiques</div><div class="card-sub">Jours restants · Alerte si &lt; 7j</div></div><span class="badge b-r">2 ruptures</span></div>
+        <div class="stk-list">
+          <div class="stk-row sr"><div style="flex:1"><div class="stk-name">Paracétamol IV 1g</div><div class="stk-cat">Antalgique · Usage quotidien</div></div><div class="stk-bar-w"><div class="stk-bar" style="width:8%;background:var(--red)"></div></div><div class="stk-days" style="color:var(--red)">1j ⚠</div></div>
+          <div class="stk-row sa"><div style="flex:1"><div class="stk-name">Solutés perfusion NaCl</div><div class="stk-cat">Soins de base</div></div><div class="stk-bar-w"><div class="stk-bar" style="width:28%;background:var(--amber)"></div></div><div class="stk-days" style="color:var(--amber)">4j</div></div>
+          <div class="stk-row sa"><div style="flex:1"><div class="stk-name">Amoxicilline 500mg</div><div class="stk-cat">Antibiotique</div></div><div class="stk-bar-w"><div class="stk-bar" style="width:40%;background:var(--gold)"></div></div><div class="stk-days" style="color:var(--amber)">6j</div></div>
+          <div class="stk-row"><div style="flex:1"><div class="stk-name">Sulfate de fer</div><div class="stk-cat">Carence / Maternité</div></div><div class="stk-bar-w"><div class="stk-bar" style="width:65%;background:var(--green2)"></div></div><div class="stk-days" style="color:var(--green)">18j</div></div>
+          <div class="stk-row"><div style="flex:1"><div class="stk-name">Oxytocine injectable</div><div class="stk-cat">Maternité</div></div><div class="stk-bar-w"><div class="stk-bar" style="width:72%;background:var(--green2)"></div></div><div class="stk-days" style="color:var(--green)">21j</div></div>
+          <div class="stk-row"><div style="flex:1"><div class="stk-name">Gants chirurgicaux</div><div class="stk-cat">Consommable</div></div><div class="stk-bar-w"><div class="stk-bar" style="width:88%;background:var(--green3)"></div></div><div class="stk-days" style="color:var(--green)">31j</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div><div class="card-title">Pathologies les plus fréquentes</div><div class="card-sub">Octobre 2025 · Suivi épidémiologique</div></div><span class="badge b-t">Top 6</span></div>
+        <div class="patho-list" style="margin-bottom:14px">
+          <div class="patho-row"><span class="patho-name">Paludisme</span><div class="patho-track"><div class="patho-fill" style="width:82%;background:var(--red)"></div></div><span class="patho-val">847</span></div>
+          <div class="patho-row"><span class="patho-name">IRA respiratoires</span><div class="patho-track"><div class="patho-fill" style="width:64%;background:var(--terr)"></div></div><span class="patho-val">661</span></div>
+          <div class="patho-row"><span class="patho-name">Diarrhées aiguës</span><div class="patho-track"><div class="patho-fill" style="width:51%;background:var(--gold)"></div></div><span class="patho-val">524</span></div>
+          <div class="patho-row"><span class="patho-name">HTA / Cardio</span><div class="patho-track"><div class="patho-fill" style="width:38%;background:var(--green2)"></div></div><span class="patho-val">390</span></div>
+          <div class="patho-row"><span class="patho-name">Traumatismes</span><div class="patho-track"><div class="patho-fill" style="width:28%;background:var(--green3)"></div></div><span class="patho-val">289</span></div>
+          <div class="patho-row"><span class="patho-name">Diabète</span><div class="patho-track"><div class="patho-fill" style="width:19%;background:var(--mint)"></div></div><span class="patho-val">197</span></div>
+        </div>
+        <div style="border-top:1px solid var(--border);padding-top:10px">
+          <div class="card-sub" style="margin-bottom:8px">Indicateurs qualité</div>
+          <div class="indic-grid">
+            <div class="indic-card"><div class="indic-val" style="color:var(--green)">96,8%</div><div class="indic-lbl">Survie urgences</div><div class="indic-d" style="color:var(--green)">↑ +0,4%</div></div>
+            <div class="indic-card"><div class="indic-val" style="color:var(--amber)">34 min</div><div class="indic-lbl">Délai prise en charge</div><div class="indic-d" style="color:var(--red)">↑ +6min</div></div>
+            <div class="indic-card"><div class="indic-val" style="color:var(--green2)">1,8%</div><div class="indic-lbl">Infections nosocom.</div><div class="indic-d" style="color:var(--green)">↓ −0,2%</div></div>
+            <div class="indic-card"><div class="indic-val" style="color:var(--terr)">89%</div><div class="indic-lbl">Satisfaction patients</div><div class="indic-d" style="color:var(--green)">↑ +3%</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="card-hd"><div><div class="card-title">Alertes & recommandations ATA</div><div class="card-sub">Générées automatiquement · Aujourd'hui</div></div><span class="badge b-r">4 actives</span></div>
+        <div class="al-list">
+          <div class="al-row al-rr"><span style="font-size:13px;flex-shrink:0">🔴</span><div><div class="al-title">Rupture imminente — Paracétamol IV</div><div class="al-desc">1 jour de stock. 240 unités/jour. Commande urgente. Budget pharmacie : 6M CFA disponibles.</div></div></div>
+          <div class="al-row al-rr"><span style="font-size:13px;flex-shrink:0">🔴</span><div><div class="al-title">Urgences surchargées — 112% capacité</div><div class="al-desc">38 patients sur 34 lits. Transfert recommandé vers médecine générale. Pic 10h–14h.</div></div></div>
+          <div class="al-row al-aa"><span style="font-size:13px;flex-shrink:0">🟡</span><div><div class="al-title">Budget pharmacie à 94%</div><div class="al-desc">12M CFA restants. Demande rallonge Ministère à soumettre avant le 20 oct.</div></div></div>
+          <div class="al-row al-bb"><span style="font-size:13px;flex-shrink:0">🟤</span><div><div class="al-title">Pic paludisme +22% vs oct. 2024</div><div class="al-desc">847 cas vs 694 l'an dernier. Saison des pluies. Artéméther-Luméfantrine à surveiller.</div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div><div class="card-title">Planning médecins — Aujourd'hui</div><div class="card-sub">Lundi 14 octobre 2025</div></div><span class="badge b-g">12 praticiens</span></div>
+        <div class="ag-list">
+          <div class="ag-row"><span class="ag-time">07h00</span><span class="ag-dot" style="background:var(--red)"></span><div style="flex:1"><div class="ag-name">Dr. Ousmane Ndiaye</div><div class="ag-role">Urgences — Chef de service</div></div><span class="ag-load">38 patients</span></div>
+          <div class="ag-row"><span class="ag-time">08h00</span><span class="ag-dot" style="background:var(--forest)"></span><div style="flex:1"><div class="ag-name">Dr. Mariama Diallo</div><div class="ag-role">Médecine interne</div></div><span class="ag-load">24 patients</span></div>
+          <div class="ag-row"><span class="ag-time">08h30</span><span class="ag-dot" style="background:var(--gold)"></span><div style="flex:1"><div class="ag-name">Dr. Ibrahima Sarr</div><div class="ag-role">Chirurgie générale</div></div><span class="ag-load">4 opérations</span></div>
+          <div class="ag-row"><span class="ag-time">09h00</span><span class="ag-dot" style="background:var(--green2)"></span><div style="flex:1"><div class="ag-name">Dr. Rokhaya Faye</div><div class="ag-role">Maternité</div></div><span class="ag-load">17 patientes</span></div>
+          <div class="ag-row"><span class="ag-time">09h00</span><span class="ag-dot" style="background:var(--terr)"></span><div style="flex:1"><div class="ag-name">Dr. Abdoulaye Ba</div><div class="ag-role">Pédiatrie</div></div><span class="ag-load">31 patients</span></div>
+          <div class="ag-row"><span class="ag-time">14h00</span><span class="ag-dot" style="background:var(--mint)"></span><div style="flex:1"><div class="ag-name">Dr. Aïcha Mbaye</div><div class="ag-role">Cardiologie</div></div><span class="ag-load">19 patients</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g3">
+      <div class="card"><div class="fc-lbl">🔮 Prévision patients — Novembre</div><div class="fc-val">3 580</div><div class="fc-track"><div class="fc-fill" style="width:82%;background:linear-gradient(90deg,var(--green),var(--green3))"></div></div><div class="fc-note">Confiance <b>82%</b> · +10,2% · Pic paludisme attendu</div></div>
+      <div class="card"><div class="fc-lbl">💵 Budget restant fin d'année</div><div class="fc-val">298M CFA</div><div class="fc-track"><div class="fc-fill" style="width:68%;background:linear-gradient(90deg,var(--gold),var(--terr))"></div></div><div class="fc-note">Projection : <b style="color:var(--amber)">dépassement possible</b> si pic confirmé</div></div>
+      <div class="card"><div class="fc-lbl">🛏️ Taux occupation prévu</div><div class="fc-val">91%</div><div class="fc-track"><div class="fc-fill" style="width:91%;background:linear-gradient(90deg,var(--terr),var(--red))"></div></div><div class="fc-note">Seuil critique : <b style="color:var(--red)">95%</b> · Ouverture lits recommandée</div></div>
+    </div>
+
+    <div class="wm"><b>ATA Santé Intelligence — Public</b> · Hôpital de Pikine · Données fictives · astateranga.com</div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  var page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(function(l) {
+    if (l.getAttribute('data-page') === id) l.classList.add('active');
+  });
+  window.scrollTo(0, 0);
+  var fabPrv = document.getElementById('fab-prv');
+  var fabPub = document.getElementById('fab-pub');
+  if (fabPrv) fabPrv.classList.toggle('visible', id === 'prv');
+  if (fabPub) fabPub.classList.toggle('visible', id === 'pub');
+  if (id === 'prv' && !window.prvChartsInit) { initPrvCharts(); window.prvChartsInit = true; }
+  if (id === 'pub' && !window.pubChartsInit) { initPubCharts(); window.pubChartsInit = true; }
+  var mm = document.getElementById('mobile-menu');
+  if (mm) mm.classList.remove('open');
+}
+
+document.querySelectorAll('.pb').forEach(b => {
+  b.addEventListener('click', () => {
+    b.closest('.period-grp').querySelectorAll('.pb').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+  });
+});
+
+const gc = 'rgba(45,106,79,0.08)';
+const tc = '#8A9E82';
+
+function initPrvCharts() {
+  new Chart(document.getElementById('prvRev'), {
+    type: 'bar',
+    data: {
+      labels: ['Nov','Déc','Jan','Fév','Mar','Avr','Mai','Juin','Juil','Aoû','Sep','Oct'],
+      datasets: [
+        { label:'Revenus', data:[28,30,29,32,33,35,36,38,40,42,43,47.3],
+          backgroundColor: (ctx) => ctx.dataIndex === 11 ? '#2D6A4F' : 'rgba(45,106,79,0.4)',
+          borderRadius: 4, order: 2 },
+        { label:'Dépenses', data:[22,23,22,24,25,26,26,28,29,30,31,33],
+          type:'line', borderColor:'#E9C46A', borderDash:[5,3], borderWidth:2,
+          pointBackgroundColor:'#E9C46A', pointRadius:3, tension:0.4, fill:false, order:1 }
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false},
+        tooltip:{ backgroundColor:'#FFFEF5', titleColor:'#1A3A2A', bodyColor:'#4A6741',
+          borderColor:'rgba(45,106,79,0.2)', borderWidth:1,
+          callbacks:{ label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}M CFA` }
+        }
+      },
+      scales:{ x:{grid:{color:gc},ticks:{color:tc,font:{size:11}}}, y:{grid:{color:gc},ticks:{color:tc,font:{size:11},callback:v=>v+'M'},min:0,max:55} }
+    }
+  });
+  new Chart(document.getElementById('prvDonut'), {
+    type:'doughnut',
+    data:{
+      labels:['Cardiologie','Maternité','Chirurgie','Urgences','Labo/Radio'],
+      datasets:[{ data:[32,24,20,14,10],
+        backgroundColor:['#1A3A2A','#2D6A4F','#E9C46A','#F4A261','#95D5B2'],
+        borderWidth:2, borderColor:'#FFFFFF', hoverOffset:4
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false, cutout:'66%',
+      plugins:{ legend:{display:false},
+        tooltip:{ backgroundColor:'#FFFEF5', titleColor:'#1A3A2A', bodyColor:'#4A6741',
+          borderColor:'rgba(45,106,79,0.2)', borderWidth:1,
+          callbacks:{ label: ctx => ` ${ctx.label}: ${ctx.parsed}%` }
+        }
+      }
+    }
+  });
+}
+
+function initPubCharts() {
+  new Chart(document.getElementById('pubFlux'), {
+    type:'bar',
+    data:{
+      labels:['Urgences','Médecine','Chirurgie','Maternité','Pédiatrie'],
+      datasets:[
+        { label:'Entrées', data:[1082,742,387,524,512], backgroundColor:'#2D6A4F', borderRadius:4, barPercentage:0.4 },
+        { label:'Sorties', data:[974,718,371,498,489], backgroundColor:'#E9C46A', borderRadius:4, barPercentage:0.4 }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false},
+        tooltip:{ backgroundColor:'#FFFEF5', titleColor:'#1A3A2A', bodyColor:'#4A6741',
+          borderColor:'rgba(45,106,79,0.2)', borderWidth:1,
+          callbacks:{ label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString()} patients` }
+        }
+      },
+      scales:{ x:{grid:{color:gc},ticks:{color:tc,font:{size:11}}}, y:{grid:{color:gc},ticks:{color:tc,font:{size:11}},min:0} }
+    }
+  });
+}
+
+// ── CHAT AI ──
+const CONTEXTS = {
+  prv: `Tu es l'assistant IA intégré au dashboard ATA Santé Intelligence de la Clinique Pasteur Dakar (établissement privé).
+Données du mois d'octobre 2025 :
+- Chiffre d'affaires : 47,3M CFA (↑+12,4% vs septembre, objectif 50M)
+- Patients reçus : 1 847 (moy. 61/jour)
+- Marge nette : 23,7% (↑+3,2 pts, secteur moyen ~18%)
+- Taux de recouvrement : 78% (↓-4 pts, 5,2M CFA en attente)
+- Services : Cardiologie 15,1M (marge 31,4%), Maternité 11,4M (26,8%), Chirurgie 9,5M (18,2%), Urgences 6,6M (8,4%), Labo/Radio 4,7M (34,1%)
+- Alertes : recouvrement Urgences critique (64%), stock Propofol 4 jours, opportunité Cardiologie (+1 lit = +8% revenus)
+- Prévision novembre : CA 52,1M CFA (confiance 87%), taux occupation 83%
+- Planning : Dr. Amadou Diallo (Cardio), Dr. Fatou Ndiaye (Maternité), Dr. Moussa Sow (Chirurgie), Dr. Aïssatou Ba (Urgences), Dr. Ibrahima Fall (Labo)
+Tu peux générer des rapports, rédiger des emails, analyser les tendances, proposer des actions concrètes. Réponds toujours en français, de façon professionnelle et concise. Utilise les données réelles ci-dessus dans tes réponses.`,
+
+  pub: `Tu es l'assistant IA intégré au dashboard ATA Santé Intelligence de l'Hôpital Général de Pikine (établissement public).
+Données du mois d'octobre 2025 :
+- Budget total alloué : 1,14 Mds CFA — consommé à 74% (842M)
+- Ressources humaines : 68% (412M/606M) — Nominal
+- Pharmacie & consommables : 94% (188M/200M) — CRITIQUE
+- Équipements : 81% (113M/140M) — À surveiller
+- Fonctionnement : 62% (74M/119M) — Nominal
+- Patients reçus : 3 247 (moy. 108/jour, ↑+11% vs septembre)
+- Taux occupation : 87% (240 lits) — Urgences à 112% (CRITIQUE)
+- Durée moyenne séjour : 3,2j (objectif Ministère ≤3j)
+- Stocks critiques : Paracétamol IV 1 jour restant (RUPTURE), Solutés NaCl 4 jours, Amoxicilline 6 jours
+- Pathologies top : Paludisme 847 cas (+22% vs 2024), IRA 661, Diarrhées 524, HTA/Cardio 390
+- Indicateurs qualité : survie urgences 96,8%, délai prise en charge 34min, infections nosocomiales 1,8%
+- Prévision novembre : 3580 patients, budget restant fin année 298M CFA (dépassement possible)
+Tu peux générer des rapports pour le Ministère, rédiger des emails officiels, analyser les tendances, proposer des actions. Réponds toujours en français, de façon professionnelle et adaptée au contexte public. Utilise les données réelles ci-dessus.`
+};
+
+let chatHistory = { prv: [], pub: [] };
+let currentPanel = 'prv';
+
+function openChat(panel) {
+  currentPanel = panel;
+  document.getElementById('chat-overlay').style.display = 'flex';
+  document.getElementById('chat-title').textContent =
+    panel === 'prv' ? 'Assistant IA — Clinique Pasteur' : 'Assistant IA — Hôpital de Pikine';
+  renderMessages(panel);
+  document.getElementById('chat-input').focus();
+}
+
+function closeChat() {
+  document.getElementById('chat-overlay').style.display = 'none';
+}
+
+function renderMessages(panel) {
+  const box = document.getElementById('chat-messages');
+  const msgs = chatHistory[panel];
+  if (msgs.length === 0) {
+    box.innerHTML = `
+      <div class="chat-welcome">
+        <div class="chat-welcome-icon">🌿</div>
+        <div class="chat-welcome-title">Bonjour, je suis votre assistant ATA</div>
+        <div class="chat-welcome-sub">Je connais toutes les données de votre établissement. Posez-moi n'importe quelle question ou demandez-moi de générer un rapport.</div>
+        <div class="chat-suggestions">
+          <button class="chat-sug" onclick="sendSuggestion(this)">📊 Résume la situation du mois</button>
+          <button class="chat-sug" onclick="sendSuggestion(this)">✉️ Rédige un email de rapport au Ministère</button>
+          <button class="chat-sug" onclick="sendSuggestion(this)">⚠️ Quelles sont les actions prioritaires ?</button>
+          <button class="chat-sug" onclick="sendSuggestion(this)">📈 Génère un rapport mensuel complet</button>
+        </div>
+      </div>`;
+  } else {
+    box.innerHTML = msgs.map(m => `
+      <div class="chat-msg ${m.role}">
+        <div class="chat-bubble">${m.role === 'assistant' ? marked(m.content) : escHtml(m.content)}</div>
+      </div>`).join('');
+  }
+  box.scrollTop = box.scrollHeight;
+}
+
+function escHtml(t) {
+  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// minimal markdown renderer
+function marked(text) {
+  return text
+    .replace(/^### (.+)$/gm,'<h4 style="font-size:13px;font-weight:600;color:var(--forest);margin:10px 0 4px">$1</h4>')
+    .replace(/^## (.+)$/gm,'<h3 style="font-size:14px;font-weight:700;color:var(--forest);margin:12px 0 6px">$1</h3>')
+    .replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')
+    .replace(/\*(.+?)\*/g,'<i>$1</i>')
+    .replace(/^- (.+)$/gm,'<li style="margin:3px 0;padding-left:4px">$1</li>')
+    .replace(/(<li.*<\/li>)/s,'<ul style="padding-left:16px;margin:6px 0">$1</ul>')
+    .replace(/\n\n/g,'<br><br>')
+    .replace(/\n/g,'<br>');
+}
+
+function sendSuggestion(btn) {
+  document.getElementById('chat-input').value = btn.textContent.replace(/^[^\s]+\s/,'');
+  sendMessage();
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+  input.style.height = 'auto';
+
+  chatHistory[currentPanel].push({ role: 'user', content: msg });
+  renderMessages(currentPanel);
+
+  // Add typing indicator
+  const box = document.getElementById('chat-messages');
+  const typing = document.createElement('div');
+  typing.className = 'chat-msg assistant';
+  typing.id = 'typing';
+  typing.innerHTML = '<div class="chat-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+  box.appendChild(typing);
+  box.scrollTop = box.scrollHeight;
+
+  try {
+    const messages = chatHistory[currentPanel].map(m => ({ role: m.role, content: m.content }));
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: CONTEXTS[currentPanel],
+        messages
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || "Désolé, je n'ai pas pu générer une réponse.";
+    chatHistory[currentPanel].push({ role: 'assistant', content: reply });
+  } catch(e) {
+    chatHistory[currentPanel].push({ role: 'assistant', content: "Erreur de connexion. Vérifiez votre connexion internet." });
+  }
+
+  renderMessages(currentPanel);
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+
+// auto-resize textarea
+document.addEventListener('DOMContentLoaded', () => {
+  const ta = document.getElementById('chat-input');
+  if (ta) ta.addEventListener('input', () => { ta.style.height='auto'; ta.style.height=ta.scrollHeight+'px'; });
+});
+
+function toggleMobileMenu() {
+  var mm = document.getElementById('mobile-menu');
+  if (mm) mm.classList.toggle('open');
+}
+// Close menu on outside tap
+document.addEventListener('click', function(e) {
+  var mm = document.getElementById('mobile-menu');
+  var hb = document.getElementById('hamburger');
+  if (mm && mm.classList.contains('open') && !mm.contains(e.target) && hb && !hb.contains(e.target)) {
+    mm.classList.remove('open');
+  }
+});
+</script>
+
+<!-- ── CHAT STYLES ── -->
+<style>
+.chat-fab {
+  position: fixed; bottom: 24px; right: 24px; z-index: 200;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--forest), var(--green));
+  border: none; cursor: pointer;
+  display: none; align-items: center; justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 4px 20px rgba(26,58,42,0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.chat-fab:hover { transform: scale(1.08); box-shadow: 0 8px 28px rgba(26,58,42,0.45); }
+.chat-fab.visible { display: flex; }
+
+.chat-overlay {
+  display: none; position: fixed; inset: 0; z-index: 300;
+  align-items: flex-end; justify-content: flex-end;
+  padding: 20px;
+  background: rgba(26,58,42,0.25);
+  backdrop-filter: blur(4px);
+}
+
+.chat-panel {
+  width: 400px; max-width: calc(100vw - 40px);
+  height: 580px; max-height: calc(100vh - 40px);
+  background: var(--s1);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px rgba(26,58,42,0.2);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  animation: slideUp 0.25s ease;
+}
+@keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+.chat-header {
+  background: var(--forest);
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0;
+}
+.chat-header-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: rgba(233,196,106,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.chat-header-info { flex: 1; }
+.chat-header-title { font-size: 13px; font-weight: 600; color: var(--gold); }
+.chat-header-sub { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 1px; }
+.chat-close {
+  background: rgba(255,255,255,0.08); border: none;
+  width: 28px; height: 28px; border-radius: 6px;
+  color: rgba(255,255,255,0.6); font-size: 14px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.chat-close:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+.chat-messages {
+  flex: 1; overflow-y: auto; padding: 14px;
+  display: flex; flex-direction: column; gap: 10px;
+  background: var(--bg);
+}
+.chat-messages::-webkit-scrollbar { width: 4px; }
+.chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.chat-welcome { text-align: center; padding: 16px 8px; }
+.chat-welcome-icon { font-size: 32px; margin-bottom: 10px; }
+.chat-welcome-title { font-size: 13px; font-weight: 600; color: var(--forest); margin-bottom: 6px; }
+.chat-welcome-sub { font-size: 11px; color: var(--text3); line-height: 1.5; margin-bottom: 14px; }
+.chat-suggestions { display: flex; flex-direction: column; gap: 6px; }
+.chat-sug {
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 12px;
+  font-size: 11px; color: var(--text2); cursor: pointer;
+  text-align: left; transition: all 0.2s;
+}
+.chat-sug:hover { border-color: var(--green); color: var(--forest); background: var(--s2); }
+
+.chat-msg { display: flex; }
+.chat-msg.user { justify-content: flex-end; }
+.chat-msg.assistant { justify-content: flex-start; }
+
+.chat-bubble {
+  max-width: 88%; padding: 10px 13px;
+  border-radius: 12px; font-size: 12px; line-height: 1.6;
+}
+.chat-msg.user .chat-bubble {
+  background: var(--forest); color: rgba(255,255,255,0.9);
+  border-radius: 12px 12px 2px 12px;
+}
+.chat-msg.assistant .chat-bubble {
+  background: var(--s1); color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px 12px 12px 2px;
+}
+
+.typing-dots { display: flex; gap: 4px; align-items: center; padding: 2px 0; }
+.typing-dots span {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--text3);
+  animation: dot 1.2s infinite;
+}
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dot { 0%,60%,100%{transform:translateY(0);opacity:0.4} 30%{transform:translateY(-5px);opacity:1} }
+
+.chat-footer {
+  padding: 10px 12px;
+  background: var(--s1);
+  border-top: 1px solid var(--border);
+  display: flex; gap: 8px; align-items: flex-end;
+  flex-shrink: 0;
+}
+.chat-input {
+  flex: 1; background: var(--s2);
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 9px 12px; font-family: 'DM Sans', sans-serif;
+  font-size: 12px; color: var(--text);
+  resize: none; outline: none;
+  max-height: 100px; min-height: 38px;
+  transition: border-color 0.2s;
+  line-height: 1.5;
+}
+.chat-input::placeholder { color: var(--text3); }
+.chat-input:focus { border-color: var(--green); }
+.chat-send {
+  width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+  background: var(--forest); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; transition: background 0.2s, transform 0.15s;
+}
+.chat-send:hover { background: var(--green); transform: scale(1.05); }
+</style>
+
+<!-- CHAT FAB BUTTONS (one per dashboard) -->
+<button class="chat-fab" id="fab-prv" onclick="openChat('prv')" title="Assistant IA">🤖</button>
+<button class="chat-fab" id="fab-pub" onclick="openChat('pub')" title="Assistant IA">🤖</button>
+
+<!-- CHAT OVERLAY -->
+<div class="chat-overlay" id="chat-overlay" onclick="if(event.target===this)closeChat()">
+  <div class="chat-panel">
+    <div class="chat-header">
+      <div class="chat-header-icon">🌿</div>
+      <div class="chat-header-info">
+        <div class="chat-header-title" id="chat-title">Assistant IA — ATA Santé</div>
+        <div class="chat-header-sub">Données en temps réel</div>
+      </div>
+      <button class="chat-close" onclick="closeChat()">✕</button>
+    </div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-footer">
+      <textarea class="chat-input" id="chat-input"
+        placeholder="Posez une question ou demandez un rapport..."
+        onkeydown="handleKey(event)" rows="1"></textarea>
+      <button class="chat-send" onclick="sendMessage()">↑</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
